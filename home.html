@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Система Электронного Документооборота</title>
+    <style>
+        /* Общие стили */
+        body {
+            font-family: 'courier', sans-serif; /* изменение шрифта на courier */
+            margin: 0;
+            padding: 0;
+            background-color: white; /* Цвет фона страницы */
+            font-size: 16px; /* Базовый размер шрифта */
+        }
+
+        p {
+            line-height: 1.6; /* Увеличиваем межстрочный интервал для обычного текста */
+        }
+        
+        header {
+            background-color: #2c3e50; /* Темно-синий цвет */
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px; /* Отступ снизу */
+            position: relative; /* Устанавливаем позиционирование для потомков */
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .login-register-buttons {
+            position: absolute; /* Позиционируем кнопки абсолютно внутри header */
+            top: 20px; /* Отступ сверху */
+            right: 20px; /* Отступ справа */
+        }
+
+        .login-register-buttons a {
+            background-color: #3498db; /* Светло-синий цвет */
+            color: #fff; /* Цвет текста */
+            padding: 10px 20px; /* Отступы внутри кнопки */
+            border-radius: 5px; /* Скругление углов */
+            text-decoration: none; /* Убираем подчеркивание */
+            margin-right: 10px; /* Отступ между кнопками */
+        }
+
+        .login-register-buttons a:hover {
+            background-color: #2980b9; /* Темно-синий цвет при наведении */
+        }
+
+        main {
+            max-width: 1200px; /* Максимальная ширина контейнера */
+            margin: 0 auto; /* Центрирование контейнера по горизонтали */
+            padding: 20px; /* Отступы по бокам */
+            box-sizing: border-box; /* Учитываем отступы внутри элемента */
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        caption {
+            caption-side: bottom;
+            text-align: center;
+            padding: 10px;
+            font-style: italic;
+            color: #666;
+        }
+
+        footer {
+            background-color: #2c3e50; /* Темно-синий цвет */
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Стили для формы загрузки документов */
+        .upload-form {
+            text-align: center;
+        }
+
+        .upload-form h2 {
+            margin-bottom: 10px;
+        }
+
+        .upload-form form {
+            margin-top: 20px;
+        }
+
+        .upload-form input[type="file"] {
+            margin-bottom: 10px;
+        }
+
+        /* Стилизация ссылки */
+        a.upload-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db; /* Цвет фона ссылки */
+            color: #fff; /* Цвет текста */
+            text-decoration: none; /* Убираем подчеркивание */
+            border-radius: 5px; /* Создаем закругленные углы */
+        }
+
+        /* Стили при наведении на ссылку */
+        a.upload-link:hover {
+            background-color: #2980b9; /* Изменяем цвет фона при наведении */
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Добро пожаловать</h1>
+    
+    <!-- Кнопки для регистрации и входа -->
+    <div class="login-register-buttons">
+        <a href="{% url 'login' %}">Войти</a>
+    </div>
+</header>
+<center>
+<img src="https://lh6.googleusercontent.com/1klj0dJ_2EFUuqNQatOgUwAtEqHX1zYkVTeJI_GYVtxrS9YjDkTroHC2By3n1mpwzRUhSIavfL31wYhD-EABcS-UTul7ibNvLuhmws29XV9QhgIkQlo2C3mxIqdJb4KlTtm61UWuhPkp8j4rC0wKog" width="600" height="400" alt="Рисунок">
+</center>
+<main>
+    <!-- Дополнительная информация о системе -->
+    <section class="system-info">
+        <h2>О системе Электронного Документооборота</h2>
+        <p>
+			<strong>Электронный документооборот (ЭДО): переход к эффективному управлению документами</strong>
+            Электронный документооборот (ЭДО) - это система обработки, передачи и хранения документов в цифровом формате. Он становится все более важным инструментом для компаний любого масштаба, стремящихся повысить эффективность и безопасность своих бизнес-процессов.
+        </p>
+		<p>Средства электронного документооборота позволяют существенно ускорить процессы обработки документации, снизить затраты на ее хранение и транспортировку, а также повысить уровень безопасности и защиты конфиденциальной информации.</p>
+        <p>
+            <strong>DocSphere: ваш надежный партнер в цифровом мире бизнеса</strong><br>
+            DocSphere - это инновационная платформа для электронного документооборота, предназначенная для организации эффективного управления документами в вашей компании. С помощью DocSphere вы можете сделать свой бизнес процессы более прозрачными, быстрыми и надежными.
+        </p>
+    </section>
+
+    <table>
+        <caption>Сравнительная таблица основных характеристик бумажных и электронных документов</caption><br>
+        <thead>
+            <tr>
+                <th>Характеристики</th>
+                <th>Бумажные документы</th>
+                <th>Электронные документы</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Хранение</td>
+                <td>Требуется специальное место для хранения</td>
+                <td>Вы можете сохранить его в памяти своего компьютера или в облаке</td>
+            </tr>
+            <tr>
+                <td>Доставка</td>
+                <td>Доставка почтовых отправлений потребует времени и денег</td>
+                <td>Быстрая доставка по электронной почте или другим способом</td>
+            </tr>
+            <tr>
+                <td>Безопасность</td>
+                <td>Риск утраты или повреждения</td>
+                <td>Может быть защищен шифрованием и аутентификацией</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Форма для загрузки документов -->
+    <section class="upload-form">
+        <h2>Загрузить новый документ</h2>
+        <a class="upload-link" href="{% url 'login' %}">Загрузить документ</a>
+    </section>
+    
+</main>
+
+<footer>
+    <p>&copy; 2024 Система Электронного Документооборота DocSphere</p>
+    <p>Контактная информация: a.yeltayeva@aues.kz</p>
+</footer>
+
+</body>
+</html>
+

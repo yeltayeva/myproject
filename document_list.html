@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            display: flex; /* Расширяем контейнер на весь экран */
+        }
+
+        .menu {
+            flex: 0 0 200px; /* Ширина меню */
+            background-color: #e0e0e0;
+            padding: 20px;
+        }
+
+        .menu-link {
+            text-decoration: none;
+        }
+
+
+        .content {
+            flex: 1; /* Оставшееся пространство занимает контент */
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #007bff;
+            text-align: center;
+        }
+
+        h3 {
+            margin-top: 0;
+            color:skyblue;
+            text-align: center;
+        }
+
+        p {
+            margin: 10px 0;
+            color: #333;
+        }
+
+        form {
+            display: inline;
+            margin-right: 10px;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <h3>{{ username }}</h3>
+        <h2>Меню</h2>
+        <ul>
+            <li><a class="menu-link" href="{% url 'upload_document' %}">Новый документ</a></li>
+            <li><a id="incoming-link" class="menu-link" href="{% url 'document_list' category='incoming' %}">Входящие</a></li>
+            <li><a id="outgoing-link" class="menu-link" href="{% url 'document_list' category='outgoing' %}">Исходящие</a></li>            
+            <li><a class="menu-link" href="{% url 'home' %}">Выйти</a></li>
+        </ul>
+    </div>
+    <div class="content" id="content">
+        <h1>Все документы</h1>
+<ul>
+    {% for document in documents %}
+        <li>
+            <h2>{{ document.title }}</h2>
+            <p>Отправитель: {{ document.author }}</p>
+            <p>Получатель: {{ document.recipient }}</p>
+            <p><a href="{% url 'download_document' document.id %}" target="_blank">Скачать документ</a></p>
+            <!-- Дополнительная информация о документе -->
+            {% if request.user == document.author %}
+                {% if document.is_sent %}
+                    <p>Статус: Отправлено</p>
+                {% else %}
+                    <p>Статус: Не отправлено</p>
+                {% endif %}
+            {% else %}
+                {% if document.is_viewed %}
+                    <p>Статус: Просмотрено</p>
+                {% else %}
+                    <p>Статус: Не просмотрено</p>
+                {% endif %}
+            {% endif %}
+        {% if document.is_signed %}
+            <p>Документ подписан: {{ document.signed_by }} в {{ document.signed_at }}.</p>
+        {% else %}
+        <form action="{% url 'sign_document' document.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Подписать документ</button>
+        </form>
+        <form action="{% url 'delete_document' document.id %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <button type="submit">Удалить</button>
+        </form>        
+        {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+
+    </div>
+    <script>
+        // JavaScript-обработчик для пункта меню "Исходящие"
+document.getElementById('outgoing-link').addEventListener('click', function(event) {
+    event.preventDefault(); // Предотвращаем переход по ссылке
+
+    // Выполняем AJAX-запрос для получения списка исходящих документов
+    fetch('/outgoing_documents/')  // Используем URL-адрес outgoing_documents
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('content').innerHTML = data; // Обновляем содержимое страницы
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+});
+
+// JavaScript-обработчик для пункта меню "Входящие"
+document.getElementById('incoming-link').addEventListener('click', function(event) {
+    event.preventDefault(); // Предотвращаем переход по ссылке
+
+    // Выполняем AJAX-запрос для получения списка входящих документов
+    fetch('/incoming_documents/')  // Используем URL-адрес incoming_documents
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('content').innerHTML = data; // Обновляем содержимое страницы
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+});
+
+    </script>
+</body>
+</html>
